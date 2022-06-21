@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'myapp',
     'bootstrap4',
     'cloudinary',
+    'crispy_forms',
 
 ]
 
@@ -84,6 +85,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rated.wsgi.application'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
