@@ -1,4 +1,61 @@
 {% extends 'base.html'%}
+{% load static%}
 {% block content%}
-<h1 class=" text-center">welcome</h1>
+<section>
+    <div class="container-fluid">
+        <div class="row" id="row">
+            <!-- <img src="{% static 'images/b.jpg'%}" alt="img"> -->
+
+            <div class="col-md-6" id="header1">
+
+<h2>Company reviews from People just like you</h2>
+<p></p>
+<button type="button" class="btn btn-danger btn-rounded">Learn More</button>
+
+            </div>
+            <div class="col-md-6" id="header">
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container mt-5">
+    <h3 class="text-center mb-3" > Companies</h3>
+      <div class="row">
+        {% for post in all_post%}
+    
+        <div class="col-md-3 mb-5" id="cont">
+          <div class="card h-100">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+              <img src="{{post.logo.url}}" class="img-fluid" />
+              <a href="{%url 'vote' post_id=post.id%}">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+              </a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{post.name}}</h5>
+              <p class="card-text">{{post.about}}</p>
+            </div>
+            
+          </div>
+    
+        </div>
+        {% endfor%}
+    
+      </div>
+    </div>
 {% endblock%} 
+<section>
+    <div class="container-fluid">
+        <div class="row" id="row">
+            <div class="col-md-6" id="header1">
+<h2>Company reviews from People just like you</h2>
+<p></p>
+<button type="button" class="btn btn-danger btn-rounded">Learn More</button>
+
+            </div>
+            <div class="col-md-6" id="header">
+                <img src="{% static 'images/a.png'%}" alt="img">
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,3 +1,32 @@
-h1{
-    color: brown;
+*{
+	margin: 0;
+	padding:0;
+	box-sizing:  border-box;
 }
+#bgimg{
+    background: url("/static/images/a.jpg") 50% 0 no-repeat fixed;
+    height: 100vh;
+
+}
+/* #header{
+	flex-basis: 50%;
+
+} */
+/* #header1{
+	flex-basis: 50%;
+    font-weight: bolder;
+    margin-top: 15%;
+
+}
+#header1 h2{
+    font-weight: bolder;
+    font-size: 45px;
+]
+}
+#row{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+} */
