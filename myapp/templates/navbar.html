@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">RATED</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+
+            <a class="nav-link" href="{% url 'signout' %}">Logout</a>
+          </li>
+          <li class="nav-item">
+
+          <div class="dropdown">
+            <a
+              class="btn btn-dark dropdown-toggle"
+              href="#"
+              role="button"
+              id="dropdownMenuLink"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Profile
+            </a>
+          
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="/profile/">Profile</a></li>
+              <li><a class="dropdown-item" href="/update/">Update Profile</a></li>
+            </ul>
+          </div>
+          </li>
+          {% else%}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Register</a>
+          </li>
+          <li class="nav-item">
+
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+          
+         {%endif%}
+        </ul>
+      </div>
+    </div>
+  </nav>
