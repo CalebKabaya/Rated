@@ -3,175 +3,204 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<div class="container" id="indexcontainer">
- 
-    <i class="fas fa-heart" style="float:left ;color: red;"></i>
+<div class="container mt-5" id="indexcontainer">
 
-    <div class="featured">
-   </div>
-    <section id="content">
-      <div class="row">
-        <div class="col-md-3">
-          <img src="{{company.logo.url}}" class="img-fluid" />
-        </div>
-        <div class="col-md-9">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-4">
-                <p class="mb-0" id="header">Name:</p>
-              </div>
-              <div class="col-sm-8">
-                <p class="text-muted mb-0" id="title1">{{company.name}}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-4">
-                <p class="mb-0" id="header">About:</p>
-              </div>
-              <div class="col-sm-8">
-                <p class="text-muted mb-0">{{company.about}}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row mt-4">
-              <div class="col-sm-4">
-                <p class="mb-0" id="header">Website:</p>
+  <i class="fas fa-heart" style="float:left ;color: red;"></i>
 
-              </div>
-              <div class="col-sm-8">
-                <a href="{{post.website}}" class="btn btn-outline-danger " id="btn1">Link</a>
-  
-              </div>
-            </div>
-            <hr>
-
-            <div class="contaniner">
-              <h5 class="text-center mb-3" >{{company.name}} Ratings </h5>
-             
-              {% for rating in company.ratings.all %}
-                {% if forloop.counter is company.ratings.all.count %}
-              <p><i class="fas fa-heart" style="float:left ;color: rgb(255, 187, 0);"> </i> {{rating.company_culture_average}}   Company Culture 
-              </p>
-            <p><i class="fas fa-heart" style="float:left ;color: rgb(0, 255, 4);"> </i> {{rating.skill_development_average }}   Skill Development: 
-              </p>
-              <p><i class="fas fa-heart" style="float:left ;color: rgb(0, 255, 4);"> </i> {{ rating.work_life_balance }}   Work Life Balance: 
-              </p>
-              <p><i class="fas fa-heart" style="float:left ;color: rgb(0, 255, 4);"> </i> {{ rating.work_satisfaction_average }}   Work Satisfaction 
-              </p>
-              <p><i class="fas fa-heart" style="float:left ;color: rgb(0, 255, 4);"> </i> {{ rating.job_security_average}}   Job Security 
-              </p>
-              <p><i class="fas fa-heart" style="float:left ;color: rgb(0, 255, 4);"> </i>{{ rating.salary_benefits_average}}   Salary Benefits 
-              </p>
-              <p><i class="fas fa-heart" style="float:left ;color: rgb(0, 255, 4);"> </i>{{ rating.career_growth_average }}   Career Growth 
-              </p>
-
-              {% endif %}
-              {% endfor %}
-            </div>
-           
-          </div>
-  
-      </div>
-      </div>
-  
-    </section>
-    
+  <div class="featured">
   </div>
-  <div class="container mb-5">
+  <section id="content">
     <div class="row">
-        <div class="col-md-6">
-            <h3>Add Your Ratings</h3>
-           
-            {% if user.is_authenticated %}
-            <form action="" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                <button class="btn btn-sm btn-info">Rate</button>
-            </form>
-            {% endif %}
-       </div>
-        <div class="col-md-6">
-            <h3 class="D-block mx-auto">Ratings Scores</h3>
-            {% for rating in company.ratings.all %}
-            {% if forloop.counter is company.ratings.all.count %}
-            <a class="btn btn-warning btn-sm" ><h5>{{ rating.score }}</h5>
-                <span class="sc">Rating Score</span>
-            </a>
-            <br><br>
-            <a class="btn btn-outline-success btn-sm" ><h5>{{rating.company_culture_average}}</h5>
-                <span class="sc">Company_culture Average</span>
-            </a>
-            <a class="btn btn-outline-primary btn-sm" id="u"><h5>{{rating.skill_development_average }}</h5>
-                <span class="sc">Skill_development Average</span>
-            </a>
-            <br><br>
-
-            <a class="btn btn-outline-info btn-sm" id="c"><h5>{{ rating.work_life_balance }}</h5>
-                <span class="sc">Work_life_balance Average</span>
-            </a>
-            <a class="btn btn-outline-secondary btn-sm" id="c"><h5>{{ rating.work_satisfaction_average }}</h5>
-                <span class="sc">Work_satisfaction Average</span>
-            </a>
-            <br><br>
-
-            <a class="btn btn-outline-right btn-sm" id="c"><h5>{{ rating.job_security_average}}</h5>
-                <span class="sc">Job_security Average</span>
-            </a>
-            <a class="btn btn-outline-danger btn-sm" id="c"><h5>{{ rating.salary_benefits_average}}</h5>
-                <span class="sc">Salary_benefits Average:</span>
-            </a>
-            <br><br>
-
-            <a class="btn btn-outline-success btn-sm" id="c"><h5>{{ rating.career_growth_average }}</h5>
-                <span class="sc">Career_growth Average:</span>
-            </a>
-           
-            {% endif %}
-            {% endfor %}
-            <a class="nav-link" href="">
-              <button type="button" class="btn btn-light btn-rounded" data-toggle="modal" data-target="#ModalCenter">Add Review</button>
-    
-          </a>
-          <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">New Business</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="col-md-3">
+        <img src="{{company.logo.url}}" class="img-fluid" />
       </div>
-      <div class="modal-body">
-        <form action="" method="post" enctype="multipart/form-data" novalidate >
-          {% csrf_token%}
-          {{form|crispy}}
-          <button type="submit" class="btn btn-sm btn-success">Save Business</button>
-          <button type="button" class="btn btn-sm btn-outline-danger " data-dismiss="modal">
-            Close
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-  </div>
+      <div class="col-md-9">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-4">
+              <p class="mb-0" id="header">Name:</p>
+            </div>
+            <div class="col-sm-8">
+              <p class="text-muted mb-0" id="title1">{{company.name}}</p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-4">
+              <p class="mb-0" id="header">About:</p>
+            </div>
+            <div class="col-sm-8">
+              <p class="text-muted mb-0">{{company.about}}</p>
+            </div>
+          </div>
+          <hr>
+          <div class="row mt-4">
+            <div class="col-sm-4">
+              <p class="mb-0" id="header">Website:</p>
+
+            </div>
+            <div class="col-sm-8">
+              <a href="{{post.website}}" class="btn btn-outline-danger " id="btn1">Link</a>
+
+            </div>
+          </div>
+          <hr>
+
         </div>
-       
-        
+
+      </div>
+      </div>
+
+  </section>
+
+</div>
+<div class="container">
+  <h5 class="text-center mb-3">{{company.name}} Ratings </h5>
+
+  {% for rating in company.ratings.all %}
+  {% if forloop.counter is company.ratings.all.count %}
+  <div class="row">
+    <div class="col-md-4">
+      <p><i class="fas fa-star" style="float:left ;color:rgb(0, 255, 4);"> </i> {{rating.company_culture_average}}
+        Company Culture
+      </p>
     </div>
+    <div class="col-md-4">
+      <p><i class="fas fa-star" style="float:left ;color: rgb(0, 255, 4);"> </i> {{rating.skill_development_average }}
+        Skill Development:
+      </p>
+    </div>
+
+    <div class="col-md-4">
+      <p><i class="fas fa-star" style="float:left ;color: rgb(0, 255, 4);"> </i> {{ rating.work_life_balance }} Work
+        Life Balance:
+      </p>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <p><i class="fas fa-star" style="float:left ;color: rgb(0, 255, 4);"> </i> {{ rating.work_satisfaction_average }}
+        Work Satisfaction
+      </p>
+    </div>
+    <div class="col-md-4">
+      <p><i class="fas fa-star" style="float:left ;color: rgb(0, 255, 4);"> </i> {{ rating.job_security_average}} Job
+        Security
+      </p>
+    </div>
+    <div class="col-md-4">
+      <p><i class="fas fa-star" style="float:left ;color: rgb(0, 255, 4);"> </i>{{ rating.salary_benefits_average}}
+        Salary Benefits
+      </p>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <p><i class="fas fa-star" style="float:left ;color: rgb(0, 255, 4);"> </i>{{ rating.career_growth_average }}
+        Career Growth
+      </p>
+    </div>
+  </div>
+
+
+  {% endif %}
+  {% endfor %}
+</div>
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Add Your Ratings</h3>
+
+      {% if user.is_authenticated %}
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button class="btn btn-sm btn-info">Rate</button>
+      </form>
+      {% endif %}
+    </div>
+    <div class="col-md-6">
+      <h3 class="D-block mx-auto">Ratings Scores</h3>
+      {% for rating in company.ratings.all %}
+      {% if forloop.counter is company.ratings.all.count %}
+      <a class="btn btn-warning btn-sm">
+        <h5>{{ rating.score }}</h5>
+        <span class="sc">Rating Score</span>
+      </a>
+      <br><br>
+      <a class="btn btn-outline-success btn-sm">
+        <h5>{{rating.company_culture_average}}</h5>
+        <span class="sc">Company_culture Average</span>
+      </a>
+      <a class="btn btn-outline-primary btn-sm" id="u">
+        <h5>{{rating.skill_development_average }}</h5>
+        <span class="sc">Skill_development Average</span>
+      </a>
+      <br><br>
+
+      <a class="btn btn-outline-info btn-sm" id="c">
+        <h5>{{ rating.work_life_balance }}</h5>
+        <span class="sc">Work_life_balance Average</span>
+      </a>
+      <a class="btn btn-outline-secondary btn-sm" id="c">
+        <h5>{{ rating.work_satisfaction_average }}</h5>
+        <span class="sc">Work_satisfaction Average</span>
+      </a>
+      <br><br>
+
+      <a class="btn btn-outline-right btn-sm" id="c">
+        <h5>{{ rating.job_security_average}}</h5>
+        <span class="sc">Job_security Average</span>
+      </a>
+      <a class="btn btn-outline-danger btn-sm" id="c">
+        <h5>{{ rating.salary_benefits_average}}</h5>
+        <span class="sc">Salary_benefits Average:</span>
+      </a>
+      <br><br>
+
+      <a class="btn btn-outline-success btn-sm" id="c">
+        <h5>{{ rating.career_growth_average }}</h5>
+        <span class="sc">Career_growth Average:</span>
+      </a>
+
+      {% endif %}
+      {% endfor %}
+
+
+
+    </div>
+
+
+  </div>
+</div>
+<div class="container">
+  <div>
+    <h3> Review Section</h3>
+    <a class="nav-link" href="{% url 'review' company.id  %}">
+      <button type="button" class="btn btn-light btn-rounded" data-toggle="modal" data-target="#ModalCenter">Add
+        Review</button>
+
+    </a>
+
+  </div>
+  {% for review in reviews %}
+  <div class="card">
+    <div class="card-header"><a href="/profile/"><small class="text-muted" id="small"><img
+            src="{{review.user_id.profile.profile_picture.url}}" class="rounded-circle" style="width: 50px;"
+            alt="Avatar" /></small></a> Posted By: {{review.user_id.username|title}} , Job Title: {{review.job_title}}
+    </div>
+    <div class="card-body">
+      <h5>Department: {{review.department}}</h5>
+      <p class="card-title"> <strong>Pros:</strong><br>{{review.pros}}</p>
+      <p class="card-title"><strong>Cons:</strong><br>{{review.cons}}</p>
+      <p class="card-title"><strong>Comments:</strong><br>{{review.comment}}</p>
+
+    </div>
+    <div class="card-footer text-muted">{{review.created_at|date}}</div>
+  </div>
+  {% endfor%}
 </div>
 {% endblock %}
-
-{% if rating_status %}
-<h5>You have already voted</h5>
-{% else %}
-{% if user.is_authenticated %}
-<form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    <button class="btn btn-sm btn-info">Rate</button>
-</form>
-{% endif %}
-{% endif %}
-
