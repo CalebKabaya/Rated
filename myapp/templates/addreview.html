@@ -5,13 +5,14 @@
     <div class="row">
         <div class="col-md-4" id="add">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <div>
-                        <form class="text-dark" method="post" enctype="multipart/form-data">
+                        <form  class="text-dark" method="post" >
                             {% csrf_token %}
                             {{ form|crispy}}
+                            
 
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="SUBMIT">
