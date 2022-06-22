@@ -1,10 +1,10 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render,get_object_or_404
 from django.contrib.auth.models import User
-from .models import Profile,Companies,Rating,Review
+from .models import Profile,Companies,Rating,Review,Blog
 
 from django.contrib.auth import login,authenticate,logout
-from .forms import  UpdateUserForm, UpdateUserProfileForm,PostCompanyForm,RatingsForm,ReviewForm
+from .forms import  UpdateUserForm, UpdateUserProfileForm,PostCompanyForm,RatingsForm,ReviewForm,BlogForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 # Create your views here.
@@ -13,7 +13,10 @@ def index(request):
     all_post=all_post[::-1]
     return render(request,'index.html',{"all_post":all_post})    
 
- 
+def viewblog(request):
+    all_post=Blog.objects.all()
+    all_post=all_post[::-1]
+    return render(request,'blogview.html',{"all_post":all_post}) 
 
 def signin(request):
     if request.method=="POST":
@@ -118,6 +121,7 @@ def postcompany(request):
 @login_required(login_url='login')
 def project(request,post_id):
     company = Companies.objects.get(id=post_id)
+    reviews=Review.objects.filter(campany_id=company)
     ratings = Rating.objects.filter(user=request.user, id=post_id).first()
     rating_status = None
     if ratings is None:
@@ -182,64 +186,72 @@ def project(request,post_id):
         'company': company,
         'form': form,
         'rating_status': rating_status,
+        'reviews':reviews
 
     }
     return render(request, 'singlecompany.html', params)
 
 
-
-# @login_required(login_url='/accounts/login/')
-# def review(request,post_id):
-#     company = Companies.objects.get(id=post_id)
-#     if request.method == 'POST':
-#         form = ReviewForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             project = form.save(commit=False)
-#             project.user=request.user
-#             project.save()
-            
-#         return redirect('/')
-#     else:
-#         form = ReviewForm()
-#     try:
-#         posts=Review.objects.all() 
-#         posts=posts[::-1]
-#     except Review.DoesNotExist:
-#         posts=None
-
-#     context = {
-#         'form':form,
-#         'company': company,
-#     }
-#     return render(request, 'addreview.html', context)
-
-
-def review(request, post_id):
-
+def review(request,company_id) :
     current_user = request.user
     user = User.objects.get(username=current_user.username)
-    post = Rating.objects.get(id=post_id)
+    post = Companies.objects.get(id=company_id)
+    
     form = ReviewForm()
-
     if request.method == 'POST':
-        form =RatingsForm(request.POST)
+        form =ReviewForm(request.POST)
         if form.is_valid():
-
-            # form.save()
             comment = form.save(commit=False)
-
             comment.user_id = user
             comment.campany_id = post
-
             comment.save()
-
-            return redirect('projects')
+            return redirect('project' ,post_id=post.id)
         else:
             form = ReviewForm()
-
     context = {
         'form': form,
-        'post': post
+        'post':post,
     }
-
     return render(request, 'addreview.html', context)
+
+@login_required(login_url='/accounts/login/')
+def postblog(request):
+    if request.method == 'POST':
+        form = BlogForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.user=request.user
+            project.save()
+            
+        return redirect('/')
+    else:
+        form = BlogForm()
+    try:
+        posts=Blog.objects.all() 
+        posts=posts[::-1]
+    except Blog.DoesNotExist:
+        posts=None
+
+    context = {
+        'form':form,
+    }
+    return render(request, 'addblog.html', context)
+
+
+
+# def new_comment(request,pk):
+#     post = Companies.objects.get(pk = pk)
+
+#     if request.method == 'POST':
+
+#         form = RatingsForm(request.POST)
+#         if form.is_valid():
+#             name = request.user.username
+#             comment= form.cleaned_data['comment']
+#             obj = Review(post = post,name = name,comment = comment,date = datetime.now())
+#             obj.save()
+#         return redirect('post')
+#     else:
+#         form = RatingsForm()
+
+#     return render(request, 'instagram/comment.html', {"form": form}) 
