@@ -114,14 +114,14 @@ class Review(models.Model):
         (4, 'Unclear at the moment'),
     )
     department = models.CharField(max_length=120)
-    job_title = models.EmailField(max_length=254)
+    job_title = models.CharField(max_length=254)
     pros= models.TextField(blank=True)
     cons = models.TextField(blank=True)
     comment = models.TextField(blank=True)
     work_enviroment=models.IntegerField(choices=policy, default=0, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     user_id= models.ForeignKey(User,on_delete=models.CASCADE)
-    campany_id= models.ForeignKey(Rating,on_delete=models.CASCADE)
+    campany_id= models.ForeignKey(Companies,on_delete=models.CASCADE ,related_name='campany')
 
     def __str__(self):
         return f'{self.comment} Review'
@@ -131,3 +131,28 @@ class Review(models.Model):
 
     def delete_review(self):
         self.delete()
+
+class Blog(models.Model):
+    title=models.CharField(max_length=160)
+    article=models.TextField()
+    blog_image=CloudinaryField('image')
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='blog')
+    date=models.DateTimeField(auto_now_add=True,blank=True)
+
+    def __str__(self):
+        return f'{self.title}'
+
+    def save_blog(self):
+        self.save()
+
+    def delete_blog(self):
+        self.delete()
+
+    @classmethod
+    def all_blogs(cls):
+        return cls.objects.all()
+
+
+    @classmethod
+    def search_blog(cls,title):
+        return cls.objects.filter(title__icontains=title).all()  
