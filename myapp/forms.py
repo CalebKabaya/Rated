@@ -1,5 +1,5 @@
 from django import forms
-from .models import  Profile,Companies,Rating,Review
+from .models import  Profile,Companies,Rating,Review,Blog
 from django.contrib.auth.models import User
 
 
@@ -7,6 +7,10 @@ class PostCompanyForm(forms.ModelForm):
     class Meta:
         model=Companies
         exclude = ('user','date')
+class BlogForm(forms.ModelForm):
+    class Meta:
+        model=Blog
+        exclude = ('user','date')        
 
 class UpdateUserForm(forms.ModelForm):
     email=forms.EmailField(max_length=254,help_text='Required.Inform a valid email addres')
@@ -29,5 +33,5 @@ class RatingsForm(forms.ModelForm):
 
 class ReviewForm(forms.ModelForm):
     class Meta:
-        model=Review
+        model= Review
         exclude = ('user_id','campany_id','created_at')
