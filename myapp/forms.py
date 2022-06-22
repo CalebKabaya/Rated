@@ -1,5 +1,5 @@
 from django import forms
-from .models import  Profile,Companies,Rating
+from .models import  Profile,Companies,Rating,Review
 from django.contrib.auth.models import User
 
 
@@ -25,3 +25,9 @@ class RatingsForm(forms.ModelForm):
     class Meta:
         model = Rating
         fields = ['company_culture', 'skill_development', 'work_life_balance','work_satisfaction','job_security','salary_benefits','career_growth']
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model=Review
+        exclude = ('user_id','campany_id','created_at')

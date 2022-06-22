@@ -105,3 +105,29 @@ class Rating(models.Model):
 
     def __str__(self):
         return f'{self.company} Rating'
+
+class Review(models.Model):
+    policy = (
+        (1, 'Permanent work from home'),
+        (2, 'Working from office'),
+        (3, 'Hybrid (working from office & home)'),
+        (4, 'Unclear at the moment'),
+    )
+    department = models.CharField(max_length=120)
+    job_title = models.EmailField(max_length=254)
+    pros= models.TextField(blank=True)
+    cons = models.TextField(blank=True)
+    comment = models.TextField(blank=True)
+    work_enviroment=models.IntegerField(choices=policy, default=0, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    user_id= models.ForeignKey(User,on_delete=models.CASCADE)
+    campany_id= models.ForeignKey(Rating,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.comment} Review'
+
+    def create_review(self):
+        self.save()
+
+    def delete_review(self):
+        self.delete()

@@ -1,10 +1,10 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render,get_object_or_404
 from django.contrib.auth.models import User
-from .models import Profile,Companies,Rating
+from .models import Profile,Companies,Rating,Review
 
 from django.contrib.auth import login,authenticate,logout
-from .forms import  UpdateUserForm, UpdateUserProfileForm,PostCompanyForm,RatingsForm
+from .forms import  UpdateUserForm, UpdateUserProfileForm,PostCompanyForm,RatingsForm,ReviewForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 # Create your views here.
@@ -131,6 +131,7 @@ def project(request,post_id):
             rate.user = request.user
             rate.company = company
             rate.save()
+
             post_ratings = Rating.objects.filter(company=company)
 
             company_culture_ratings = [camp.company_culture for camp in post_ratings]
@@ -176,10 +177,69 @@ def project(request,post_id):
             return HttpResponseRedirect(request.path_info)
     else:
         form = RatingsForm()
+
     params = {
         'company': company,
         'form': form,
-        'rating_status': rating_status
+        'rating_status': rating_status,
 
     }
     return render(request, 'singlecompany.html', params)
+
+
+
+# @login_required(login_url='/accounts/login/')
+# def review(request,post_id):
+#     company = Companies.objects.get(id=post_id)
+#     if request.method == 'POST':
+#         form = ReviewForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             project = form.save(commit=False)
+#             project.user=request.user
+#             project.save()
+            
+#         return redirect('/')
+#     else:
+#         form = ReviewForm()
+#     try:
+#         posts=Review.objects.all() 
+#         posts=posts[::-1]
+#     except Review.DoesNotExist:
+#         posts=None
+
+#     context = {
+#         'form':form,
+#         'company': company,
+#     }
+#     return render(request, 'addreview.html', context)
+
+
+def review(request, post_id):
+
+    current_user = request.user
+    user = User.objects.get(username=current_user.username)
+    post = Rating.objects.get(id=post_id)
+    form = ReviewForm()
+
+    if request.method == 'POST':
+        form =RatingsForm(request.POST)
+        if form.is_valid():
+
+            # form.save()
+            comment = form.save(commit=False)
+
+            comment.user_id = user
+            comment.campany_id = post
+
+            comment.save()
+
+            return redirect('projects')
+        else:
+            form = ReviewForm()
+
+    context = {
+        'form': form,
+        'post': post
+    }
+
+    return render(request, 'addreview.html', context)

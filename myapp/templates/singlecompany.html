@@ -4,16 +4,17 @@
 
 {% block content %}
 <div class="container" id="indexcontainer">
-    <i class="fas fa-heart" style="float:left"></i>
+ 
+    <i class="fas fa-heart" style="float:left ;color: red;"></i>
 
     <div class="featured">
    </div>
     <section id="content">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-3">
           <img src="{{company.logo.url}}" class="img-fluid" />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-9">
           <div class="card-body">
             <div class="row">
               <div class="col-sm-4">
@@ -32,96 +33,43 @@
                 <p class="text-muted mb-0">{{company.about}}</p>
               </div>
             </div>
-           
             <hr>
-            <h5 class="text-center mb-3">Project Ratings</h5>
-            {% for rating in company.ratings.all %}
-                {% if forloop.counter is company.ratings.all.count %}
-            <div class="row">
-
-              <div class="col-sm-4">
-                <p class="mb-0" id="header">company_culture:</p>
-              </div>
-              <div class="col-sm-8">
-                <p class="text-muted mb-0">{{rating.company_culture_average}}</p>
-              </div>
-            </div>
-            <hr>
-
-            <div class="row">
-
-                <div class="col-sm-4">
-                  <p class="mb-0" id="header">skill_development:</p>
-                </div>
-                <div class="col-sm-8">
-                  <p class="text-muted mb-0">{{rating.skill_development_average }}</p>
-                </div>
-              </div>
-              <hr>
-
-              <div class="row">
-
-                <div class="col-sm-4">
-                  <p class="mb-0" id="header">work_life_balance:</p>
-                </div>
-                <div class="col-sm-8">
-                  <p class="text-muted mb-0">{{ rating.work_life_balance }}</p>
-                </div>
-              </div>
-              <hr>
-
-              <div class="row">
-
-                <div class="col-sm-4">
-                  <p class="mb-0" id="header">work_satisfaction:</p>
-                </div>
-                <div class="col-sm-8">
-                  <p class="text-muted mb-0">{{ rating.work_satisfaction_average }}</p>
-                </div>
-              </div>
-              <hr>
-
-              <div class="row">
-
-                <div class="col-sm-4">
-                  <p class="mb-0" id="header">job_security:</p>
-                </div>
-                <div class="col-sm-8">
-                  <p class="text-muted mb-0">{{ rating.job_security_average}}</p>
-                </div>
-              </div>
-              <hr>
-
-              <div class="row">
-
-                <div class="col-sm-4">
-                  <p class="mb-0" id="header">salary_benefits:</p>
-                </div>
-                <div class="col-sm-8">
-                  <p class="text-muted mb-0">{{ rating.salary_benefits_average}}</p>
-                </div>
-              </div>
-              <hr>
-
-              <div class="row">
-
-                <div class="col-sm-4">
-                  <p class="mb-0" id="header"> career_growth:</p>
-                </div>
-                <div class="col-sm-8">
-                  <p class="text-muted mb-0">{{ rating.career_growth_average }}</p>
-                </div>
-              </div>
-            {% endif %}
-            {% endfor %}
             <div class="row mt-4">
               <div class="col-sm-4">
+                <p class="mb-0" id="header">Website:</p>
+
               </div>
               <div class="col-sm-8">
-                <a href="{{post.website}}" class="btn btn-outline-danger " style="text-align:center"id="btn1">Visit Company</a>
+                <a href="{{post.website}}" class="btn btn-outline-danger " id="btn1">Link</a>
   
               </div>
             </div>
+            <hr>
+
+            <div class="contaniner">
+              <h5 class="text-center mb-3" >{{company.name}} Ratings </h5>
+             
+              {% for rating in company.ratings.all %}
+                {% if forloop.counter is company.ratings.all.count %}
+              <p><i class="fas fa-heart" style="float:left ;color: rgb(255, 187, 0);"> </i> {{rating.company_culture_average}}   Company Culture 
+              </p>
+            <p><i class="fas fa-heart" style="float:left ;color: rgb(0, 255, 4);"> </i> {{rating.skill_development_average }}   Skill Development: 
+              </p>
+              <p><i class="fas fa-heart" style="float:left ;color: rgb(0, 255, 4);"> </i> {{ rating.work_life_balance }}   Work Life Balance: 
+              </p>
+              <p><i class="fas fa-heart" style="float:left ;color: rgb(0, 255, 4);"> </i> {{ rating.work_satisfaction_average }}   Work Satisfaction 
+              </p>
+              <p><i class="fas fa-heart" style="float:left ;color: rgb(0, 255, 4);"> </i> {{ rating.job_security_average}}   Job Security 
+              </p>
+              <p><i class="fas fa-heart" style="float:left ;color: rgb(0, 255, 4);"> </i>{{ rating.salary_benefits_average}}   Salary Benefits 
+              </p>
+              <p><i class="fas fa-heart" style="float:left ;color: rgb(0, 255, 4);"> </i>{{ rating.career_growth_average }}   Career Growth 
+              </p>
+
+              {% endif %}
+              {% endfor %}
+            </div>
+           
           </div>
   
       </div>
@@ -133,7 +81,7 @@
   <div class="container mb-5">
     <div class="row">
         <div class="col-md-6">
-            <h3>Rate this Project</h3>
+            <h3>Add Your Ratings</h3>
            
             {% if user.is_authenticated %}
             <form action="" method="post" enctype="multipart/form-data">
@@ -147,33 +95,69 @@
             <h3 class="D-block mx-auto">Ratings Scores</h3>
             {% for rating in company.ratings.all %}
             {% if forloop.counter is company.ratings.all.count %}
-            <a class="btn btn-info btn-sm" ><h5>{{ rating.score }}</h5>
+            <a class="btn btn-warning btn-sm" ><h5>{{ rating.score }}</h5>
                 <span class="sc">Rating Score</span>
             </a>
+            <br><br>
             <a class="btn btn-outline-success btn-sm" ><h5>{{rating.company_culture_average}}</h5>
                 <span class="sc">Company_culture Average</span>
             </a>
             <a class="btn btn-outline-primary btn-sm" id="u"><h5>{{rating.skill_development_average }}</h5>
                 <span class="sc">Skill_development Average</span>
             </a>
-            <a class="btn btn-outline-danger btn-sm" id="c"><h5>{{ rating.work_life_balance }}</h5>
+            <br><br>
+
+            <a class="btn btn-outline-info btn-sm" id="c"><h5>{{ rating.work_life_balance }}</h5>
                 <span class="sc">Work_life_balance Average</span>
             </a>
-            <a class="btn btn-outline-danger btn-sm" id="c"><h5>{{ rating.work_satisfaction_average }}</h5>
+            <a class="btn btn-outline-secondary btn-sm" id="c"><h5>{{ rating.work_satisfaction_average }}</h5>
                 <span class="sc">Work_satisfaction Average</span>
             </a>
-            <a class="btn btn-outline-danger btn-sm" id="c"><h5>{{ rating.job_security_average}}</h5>
+            <br><br>
+
+            <a class="btn btn-outline-right btn-sm" id="c"><h5>{{ rating.job_security_average}}</h5>
                 <span class="sc">Job_security Average</span>
             </a>
             <a class="btn btn-outline-danger btn-sm" id="c"><h5>{{ rating.salary_benefits_average}}</h5>
                 <span class="sc">Salary_benefits Average:</span>
             </a>
-            <a class="btn btn-outline-danger btn-sm" id="c"><h5>{{ rating.career_growth_average }}</h5>
+            <br><br>
+
+            <a class="btn btn-outline-success btn-sm" id="c"><h5>{{ rating.career_growth_average }}</h5>
                 <span class="sc">Career_growth Average:</span>
             </a>
+           
             {% endif %}
             {% endfor %}
+            <a class="nav-link" href="">
+              <button type="button" class="btn btn-light btn-rounded" data-toggle="modal" data-target="#ModalCenter">Add Review</button>
+    
+          </a>
+          <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">New Business</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" enctype="multipart/form-data" novalidate >
+          {% csrf_token%}
+          {{form|crispy}}
+          <button type="submit" class="btn btn-sm btn-success">Save Business</button>
+          <button type="button" class="btn btn-sm btn-outline-danger " data-dismiss="modal">
+            Close
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
         </div>
+       
         
     </div>
 </div>
