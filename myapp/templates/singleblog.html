@@ -2,41 +2,67 @@
 {% block content %}
 <div class="container" id="indexcontainer">
     <div class="row row-cols-1 row-cols-md-3 g-4">
-     <div class="col-md-6">
-        <img src={{blogs.blog_image.url}} class="img-fluid"  />
-     </div>
-     <div class="col-md-6">
-         
-    
-    <h5 class="card-title">{{blogs.title}}</h5>
-<div class="row">
-    <div class="col-md-6">
-        <p class="text-muted"> Posted By:{{blogs.user.username|title}}</p>
+        <div class="col-md-6">
+            <img src={{blogs.blog_image.url}} class="img-fluid" />
+        </div>
+        <div class="col-md-6">
+
+
+            <h5 class="card-title">{{blogs.title}}</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-muted"> Posted By:{{blogs.user.username|title}}</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-muted">{{blogs.date|date}}</p>
+                </div>
+                <p> {{blogs.article}}</p>
+                <div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="{%url 'comment' blogs.id%}" class="btn"
+                                style="background-color: rgb(13, 77, 13); color:white;font-weight:bold;">Comment</a>
+
+                        </div>
+                        <div class="col-md-6">
+                            {% if not liked %}
+                            <a href="{%url 'like_post' blogs.id%}" class="btn btn-primary">Like</a>
+                            {%else%}
+                            <a href="{%url 'like_post' blogs.id%}" class="btn btn-danger">Unlike</a>
+                            {% endif %}
+
+                            <p class="mt-4">Number of likes : {{likes_count}}</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
-        <p class="text-muted">{{blogs.date|date}}</p>
-    </div>
-    <p> {{blogs.article}}</p>
-</div>
-</div>
+    <div class="container">
+        <h3>Comment Section</h3>
+        <div class="row">
+            <div class="col-md-6">
+                {% for comment in comments %}
+
+                <p>{{comment.comments}}</p>
+
+                {%endfor%}
+            </div>
+        </div>
     </div>
 
 </div>
+<div class="container-fluid">
+    {% include 'footer.html' %}
+
+  </div>
 {% endblock%}
-<div class="col-md-3 mb-5" id="cont">
-    <div class="card h-100">
-        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light" id="campimg">
-            <img src={{blogs.blog_image.url}} class="img-fluid" id="img" />
-            <a href="">
-                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-            </a>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">{{blogs.title}}</h5>
-            <p>{{blogs.article|slice:":100" }} <a href="">Read More!!</a>
-            </p>
-        </div>
-        <div class="card-footer">
-            <small class="text-muted">{{blogs.date|date}}</small>
-        </div>
-    </div>
+<!-- {% if not liked %} -->
+<a href="{%url 'like_post' blogs.id%}" class="btn btn-primary">Like</a>
+<!-- {%else%} -->
+<a href="{%url 'like_post' blogs.id%}" class="btn btn-danger">Unlike</a>
+<!-- {% endif %} -->
