@@ -1,7 +1,7 @@
-# Neghbourhood-Watch
+# Rated
 
 ## Description
-Hoodconnect allows users to join a neghbourhood, advertise businesses, create posts and views other users' posts. 
+Rated is a web platform where employees can be able to rate their company in terms of the work environment they provide.This approach gives job seekers and employers what they've asked for - the freshest perspective on what it’s really like to work inside any company, according to employees reviews.
 
 ## Author
 
@@ -31,13 +31,15 @@ As a user of the application you will be able to:
 ## BDD
 | Behavior            | Input                         | Output                        | 
 | ------------------- | ----------------------------- | ----------------------------- | 
-| Login to admin  | **username**: moringa , **password** : Mbuguack7 | view and make changes to the admin | 
+
 |Signup to the application | Click on `Signup` | A sign up page appears with a sign up form |
 |  Login to the site | Click on `Log in`  | Redirected to the login page with a login form |
 |  Search in the search field | Input keywords to be searched then click SEARCH | Search page is loaded and displays with the searched results |
-|Submit a post|click on `Upload Post`| An upload page appears with an upload form containing different fields|
-|View profile|click `account` link in the navbar|Redirects to profile page with an option to edit profile|
-|View businesses|click `businesses`|businesses page with the businesses in the neighbourhood|
+|Rate a company|click on `view company`| a list of various categories of rating will aprear and can rate a compay using that list choice|
+|View profile|click `profile` link in the navbar|Redirects to profile page with an option to edit profile|
+|View blog|click `blogpost`|blog page  with all the latest article posted|
+|View review|click `review` button |be able to add your review for the company of your choice|
+
 
 
 ## Getting started
