@@ -16,6 +16,8 @@ urlpatterns=[
 
     re_path(r'^project/(?P<post_id>\d+)?$', views.project, name='project'), 
     re_path(r'^review/(?P<company_id>\d+)?$', views.review, name='review'),
+    re_path(r'^singleblog/(?P<blog_id>\d+)?$', views.singleblog, name='singleblog'), 
+
     # re_path('review/', views.review, name='review'),
     # re_path('review/<int:pk>' , views.review, name='comment'),
 
