@@ -63,7 +63,7 @@ class Companies(models.Model):
 
 
     @classmethod
-    def search_projects(cls,name):
+    def search_company(cls,name):
         return cls.objects.filter(name__icontains=name).all()  
 
     
@@ -156,3 +156,23 @@ class Blog(models.Model):
     @classmethod
     def search_blog(cls,title):
         return cls.objects.filter(title__icontains=title).all()  
+
+class Comment(models.Model):
+        blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+        user = models.ForeignKey(User, on_delete=models.CASCADE)
+        comments = models.TextField(max_length=160)
+
+        def __str__(self):
+            return self.comments
+
+        def save_comment(self):
+            self.save()
+
+        def delete_comment(self):
+            self.delete()
+
+
+class Likes(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    user_id= models.ForeignKey(User,on_delete=models.CASCADE)
+    blog_id= models.ForeignKey(Blog,on_delete=models.CASCADE)
