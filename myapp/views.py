@@ -1,10 +1,10 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render,get_object_or_404
 from django.contrib.auth.models import User
-from .models import Profile,Companies,Rating,Review,Blog
+from .models import Profile,Companies,Rating,Review,Blog,Comment,Likes
 
 from django.contrib.auth import login,authenticate,logout
-from .forms import  UpdateUserForm, UpdateUserProfileForm,PostCompanyForm,RatingsForm,ReviewForm,BlogForm
+from .forms import  UpdateUserForm, UpdateUserProfileForm,PostCompanyForm,RatingsForm,ReviewForm,BlogForm,CommentForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 # Create your views here.
@@ -240,30 +240,105 @@ def postblog(request):
     }
     return render(request, 'addblog.html', context)
 
+# def singleblog(request,blog_id):
+#     blogs= Blog.objects.get(id=blog_id)
+#     # comments=Comment.objects.all()
+#     comments=Comment.objects.filter(blog=blog_id)
+#     context={
+#         'blogs':blogs,
+#         'comments':comments,
+
+#     }
+#     return render(request, 'singleblog.html', context)
 @login_required(login_url='login')
-def singleblog(request,blog_id):
+def singleblog(request, blog_id):
     blogs= Blog.objects.get(id=blog_id)
-    context={
-        'blogs':blogs
+    current_user = request.user
+    user = User.objects.get(username=current_user.username)
+    comments=Comment.objects.filter(blog=blog_id)
+    likes_count = Likes.objects.filter(blog_id=blog_id).count()
+    liked = False
+
+    try:
+
+        like = Likes.objects.filter(blog_id=blog_id, user_id=user.id)
+
+        if like:
+            liked = True
+        else:
+            liked = False
+
+    except Likes.DoesNotExist:
+        print('')
+
+    # get post comment
+
+    ctx = {
+        'blogs':blogs,
+        'comments':comments,
+        'likes_count': likes_count,
+        'liked': liked
+
     }
-    return render(request, 'singleblog.html', context)
+    return render(request, 'singleblog.html', ctx)    
 
+@login_required(login_url='login')
+def comment(request,post_id):
 
+    current_user = request.user
+    user = User.objects.get(username=current_user.username)
+    blog = Blog.objects.get(id=post_id)
+    form = CommentForm()
 
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            # form.save()
+            comment = form.save(commit=False)
+            comment.user = user
+            comment.blog = blog
+            comment.save()
+            return redirect('singleblog' ,blog_id=blog.id)
+        else:
+            form = CommentForm()
+    ctx = {
+        'form': form,
+        'blog': blog
+    }
 
-# def new_comment(request,pk):
-#     post = Companies.objects.get(pk = pk)
+    return render(request, 'comment.html', ctx)
 
-#     if request.method == 'POST':
+@login_required(login_url='login')
+def like_post(request, blog_id):
+    current_user = request.user
+    user = User.objects.get(username=current_user.username)
+    blog = Blog.objects.get(id=blog_id)
+    try:
+        like = Likes.objects.filter(blog_id=blog_id, user_id=user.id)
 
-#         form = RatingsForm(request.POST)
-#         if form.is_valid():
-#             name = request.user.username
-#             comment= form.cleaned_data['comment']
-#             obj = Review(post = post,name = name,comment = comment,date = datetime.now())
-#             obj.save()
-#         return redirect('post')
-#     else:
-#         form = RatingsForm()
+        if like:
+            like.delete()
+        else:
+            Likes.objects.create(
+                user_id=user,
+                blog_id=blog
+            )
 
-#     return render(request, 'instagram/comment.html', {"form": form}) 
+    except Likes.DoesNotExist:
+        print('')
+    return redirect('singleblog', blog_id=blog.id)
+
+def search_company(request):
+    if request.method == 'GET':
+        name = request.GET.get("title")
+        results = Companies.objects.filter(name__icontains=name).all()
+        print(results)
+        message = f'name'
+        params = {
+            'results': results,
+            'message': message
+        }
+        return render(request, 'results.html', params)
+    else:
+        message = "You haven't searched for any image category"
+    return render(request, "results.html")
