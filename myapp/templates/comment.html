@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+ {% load static %}
+ {% block content %}
+
+<div class="container" id="indexcontainer">
+  <div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-6  shadow ">
+      <h3 style="color: rgb(0, 0, 0);"> Give Your  Feedback on the Article</h3>
+
+      <div class="form_container" style="margin-top: 4%;">
+        <form action=" " method="post">
+          {% csrf_token %}
+          {{ form|crispy}}
+    
+          <button type="submit" class="btn btn-warning mb-3">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+  </div>
+  
+</div>
+{% endblock %}
+<div class="col-6 offset 3 mb-3">{{form.content}}</div>
