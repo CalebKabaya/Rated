@@ -11,7 +11,10 @@ from django.http import HttpResponse, Http404,HttpResponseRedirect
 def index(request):
     all_post=Companies.objects.all()
     all_post=all_post[::-1]
-    return render(request,'index.html',{"all_post":all_post})    
+    all_blogs=Blog.objects.all()
+    all_blogs=all_blogs[::-1]
+
+    return render(request,'index.html',{"all_post":all_post, 'all_blogs':all_blogs})    
 
 def viewblog(request):
     all_post=Blog.objects.all()
@@ -236,6 +239,15 @@ def postblog(request):
         'form':form,
     }
     return render(request, 'addblog.html', context)
+
+@login_required(login_url='login')
+def singleblog(request,blog_id):
+    blogs= Blog.objects.get(id=blog_id)
+    context={
+        'blogs':blogs
+    }
+    return render(request, 'singleblog.html', context)
+
 
 
 
