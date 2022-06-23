@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="container" id="indexcontainer">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+     <div class="col-md-6">
+        <img src={{blogs.blog_image.url}} class="img-fluid"  />
+     </div>
+     <div class="col-md-6">
+         
+    
+    <h5 class="card-title">{{blogs.title}}</h5>
+<div class="row">
+    <div class="col-md-6">
+        <p class="text-muted"> Posted By:{{blogs.user.username|title}}</p>
+    </div>
+    <div class="col-md-6">
+        <p class="text-muted">{{blogs.date|date}}</p>
+    </div>
+    <p> {{blogs.article}}</p>
+</div>
+</div>
+    </div>
+
+</div>
+{% endblock%}
+<div class="col-md-3 mb-5" id="cont">
+    <div class="card h-100">
+        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light" id="campimg">
+            <img src={{blogs.blog_image.url}} class="img-fluid" id="img" />
+            <a href="">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+            </a>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{blogs.title}}</h5>
+            <p>{{blogs.article|slice:":100" }} <a href="">Read More!!</a>
+            </p>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">{{blogs.date|date}}</small>
+        </div>
+    </div>
