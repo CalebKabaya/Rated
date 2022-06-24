@@ -20,6 +20,10 @@ def viewblog(request):
     all_post=Blog.objects.all()
     all_post=all_post[::-1]
     return render(request,'blogview.html',{"all_post":all_post}) 
+def viewcompanies(request):
+    all_post=Companies.objects.all()
+    all_post=all_post[::-1]
+    return render(request,'companiesview.html',{"all_post":all_post})     
 
 def signin(request):
     if request.method=="POST":
