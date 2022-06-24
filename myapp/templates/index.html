@@ -1,175 +1,178 @@
 {% extends 'base.html'%}
 {% load static%}
 {% block content%}
-<div class="container-fluid">
-<div class="container" id="home">
-  <div class="row">
-    <div class="col-md-6" id="one">
-      <div class="about">
-        <h2>Company Reviews From</h2>
-        <h2> People Just Like You</h2>
-        <p>You deserve a job that loves you back</p>
-        <p>Discover Best Places to Work!
-          Company reviews. Salaries. Interviews. Jobs.</p>
-        <button type="button" class="btn btn-danger btn-rounded">Learn More</button>
+<div class="container-fluid" id="indexcontainer">
+  <div class="container" id="home">
+    <div class="row">
+      <div class="col-md-6" id="one">
+        <div class="about">
+          <h2>Company Reviews From</h2>
+          <h2> People Just Like You</h2>
+          <p>You deserve a job that loves you back</p>
+          <p>Discover Best Places to Work!
+            Company reviews. Salaries. Interviews. Jobs.</p>
+          <button type="button" class="btn btn-danger btn-rounded">Learn More</button>
+        </div>
+
       </div>
-
-    </div>
-    <div class="col-md-6" id="bgimg">
-      <img src="../static/images/d.jpg">
+      <div class="col-md-6" id="bgimg">
+        <img src="../static/images/d.jpg">
 
 
+      </div>
     </div>
   </div>
-</div>
-<div class="container">
-  <h3>Getting the Most From Rated</h3>
-  <div class="row">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
-        <div class="card h-100">
-          <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-            <img src="../static/images/h.jpg" class="img-fluid" />
-            <a href="">
-              <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-            </a>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Shining a Light on Equity</h5>
-            <p class="card-text">
-              Learn which companies walk the walk when it comes to diversity and inclusion.
-            </p>
-            <p>Search for a Company</p>
-            <div class="form-outline">
-              <input type="search" id="form1" class="form-control" placeholder="E.g Safaricom" aria-label="Search" />
-            </div>
-          </div>
-          <div class="card-footer">
-            <a href="{% url 'login' %}"><small class="text-muted text-center"><button type="button"
-                  class="btn btn-danger">Set Started</button>
-              </small></a>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-            <img src="../static/images/g.jpg" class="img-fluid" />
-            <a href="">
-              <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-            </a>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Map Your Career Path</h5>
-            <p class="card-text">
-              Prepare for your next move by visualizing salary growth and exploring new industries and roles.
-
-            </p>
-            <p>Job Title</p>
-            <div class="form-outline">
-              <input type="search" id="form1" class="form-control" placeholder="E.g UX Designer" aria-label="Search" />
-            </div>
-          </div>
-          <div class="card-footer">
-            <a href="{% url 'login' %}"> <small class="text-muted text-center"><button type="button"
-                  class="btn btn-danger">Set Started</button>
-              </small></a>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-            <img src="../static/images/f.jpg" class="img-fluid" />
-            <a href="">
-              <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-            </a>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Share Your Insights</h5>
-            <p class="card-text">
-              Help other members of our community get the inside scoop by anonymously sharing a company review,
-              interview experience, or your salary. </p>
-
-          </div>
-          <div class="card-footer">
-            <a href="{% url 'login' %}"><small class="text-muted text-center"><button type="button"
-                class="btn btn-danger">Set Started</button>
-            </small></a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class="container mt-5">
-      <h3 class="text-center mb-3"> Companies</h3>
-      <div class="row">
-        {% for post in all_post%}
-
-        <div class="col-md-3 mb-5" id="cont">
-          <div class="card h-100">
-            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light" id="campimg">
-              <img src="{{post.logo.url}}" class="img-fluid" id="img" />
-              <a href="{%url 'project' post_id=post.id%}">
-                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-              </a>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">{{post.name}}</h5>
-              <div class="row">
-                <div class="col-md-6">
-                  <p class="card-text">Employess:{{post.size}}</p>
-
-                </div>
-                <div class="col-md-6">
-                  <p class="card-text">{{post.location}}</p>
-
-                </div>
-              </div>
-              <p> <strong> About</strong>
-                <br>{{post.about|slice:":100" }} <a href="{%url 'project' post_id=post.id%}">Read More!!</a>
-              </p>
-            </div>
-
-          </div>
-
-        </div>
-        {% endfor%}
-
-      </div>
-    </div>
-    <div class="container mt-4">
-      <h3 class="text-center mb-3"> Popular Articles</h3>
+  <div class="container" id="bunner">
+    <h3>Getting the Most From Rated</h3>
+    <div class="row">
       <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for post in all_blogs%}
-
-        <div class="col-md-3 mb-5" id="cont">
+        <div class="col">
           <div class="card h-100">
-            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light" id="campimg">
-              <img src={{post.blog_image.url}} class="img-fluid" id="img" />
-              <a href="{%url 'singleblog' blog_id=post.id%}">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+              <img src="../static/images/h.jpg" class="img-fluid" />
+              <a href="">
                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
               </a>
             </div>
             <div class="card-body">
-              <h5 class="card-title">{{post.title}}</h5>
-              <p>{{post.article|slice:":100" }} <a href="{%url 'singleblog' blog_id=post.id%}">Read More!!</a>
+              <h5 class="card-title">Shining a Light on Equity</h5>
+              <p class="card-text">
+                Learn which companies walk the walk when it comes to diversity and inclusion.
               </p>
+              <p>Search for a Company</p>
+              <div class="form-outline">
+                <input type="search" id="form1" class="form-control" placeholder="E.g Safaricom" aria-label="Search" />
+              </div>
             </div>
             <div class="card-footer">
-              <small class="text-muted">{{post.date|date}}</small>
+              <a href="{% url 'login' %}"><small class="text-muted text-center"><button type="button"
+                    class="btn btn-danger">Set Started</button>
+                </small></a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+              <img src="../static/images/g.jpg" class="img-fluid" />
+              <a href="">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+              </a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Map Your Career Path</h5>
+              <p class="card-text">
+                Prepare for your next move by visualizing salary growth and exploring new industries and roles.
+
+              </p>
+              <p>Job Title</p>
+              <div class="form-outline">
+                <input type="search" id="form1" class="form-control" placeholder="E.g UX Designer"
+                  aria-label="Search" />
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'login' %}"> <small class="text-muted text-center"><button type="button"
+                    class="btn btn-danger">Set Started</button>
+                </small></a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+              <img src="../static/images/f.jpg" class="img-fluid" />
+              <a href="">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+              </a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Share Your Insights</h5>
+              <p class="card-text">
+                Help other members of our community get the inside scoop by anonymously sharing a company review,
+                interview experience, or your salary. </p>
+
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'login' %}"><small class="text-muted text-center"><button type="button"
+                    class="btn btn-danger">Set Started</button>
+                </small></a>
             </div>
           </div>
 
         </div>
-
-        {% endfor%}
       </div>
-    </div>
-    
-  </div>
-  <div class="container-fluid">
-    {% include 'footer.html' %}
+      <div class="container mt-5">
+        <h3 class="text-center mb-3"> Companies</h3>
+        <div class="row">
+          {% for post in all_post%}
 
+          <div class="col-md-3 mb-5" id="cont">
+            <div class="card h-100">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light" id="campimg">
+                <img src="{{post.logo.url}}" class="img-fluid" id="img" />
+                <a href="{%url 'project' post_id=post.id%}">
+                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{post.name}}</h5>
+                <div class="row">
+                  <div class="col-md-6">
+                    <p class="card-text">Employess:{{post.size}}</p>
+
+                  </div>
+                  <div class="col-md-6">
+                    <p class="card-text">{{post.location}}</p>
+
+                  </div>
+                </div>
+                <p> <strong> About</strong>
+                  <br>{{post.about|slice:":100" }} <a href="{%url 'project' post_id=post.id%}">Read More!!</a>
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+          {% endfor%}
+
+        </div>
+      </div>
+      <div class="container mt-4">
+        <h3 class="text-center mb-3"> Popular Articles</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% for post in all_blogs%}
+
+          <div class="col-md-3 mb-5" id="cont">
+            <div class="card h-100">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light" id="campimg">
+                <img src={{post.blog_image.url}} class="img-fluid" id="img" />
+                <a href="{%url 'singleblog' blog_id=post.id%}">
+                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{post.title}}</h5>
+                <p>{{post.article|slice:":100" }} <a href="{%url 'singleblog' blog_id=post.id%}">Read More!!</a>
+                </p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">{{post.date|date}}</small>
+              </div>
+            </div>
+
+          </div>
+
+          {% endfor%}
+        </div>
+      </div>
+
+    </div>
+    <div class="container-fluid">
+      {% include 'footer.html' %}
+
+    </div>
   </div>
-    {% endblock%}
+ </div> 
+  {% endblock%}
