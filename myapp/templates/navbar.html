@@ -16,7 +16,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mx-auto">
-            {% if user.is_authenticated %}
 
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
@@ -47,7 +46,8 @@
        
         
           
-         
+        {% if user.is_authenticated %}
+
           <li class="nav-item">
             <a class="nav-link mr-0" href="#">Hello {{request.user}} </a>
         </li>
